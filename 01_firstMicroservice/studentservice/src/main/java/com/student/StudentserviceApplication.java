@@ -9,50 +9,60 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestClient;
 
 import java.util.List;
 
 @SpringBootApplication
 public class StudentserviceApplication {
-
+    
     @Autowired
     StudentRepo studentRepo;
-
+    
     public static void main(String[] args) {
+        
         SpringApplication.run(StudentserviceApplication.class, args);
     }
-
+    
+    @Bean
+    public RestClient restClient() {
+        
+        return RestClient.builder()
+            .baseUrl("http://localhost:8080")
+            .build();
+    }
+    
     @Bean
     ApplicationRunner runner() {
-
+        
         return (ApplicationArguments applicationArguments) -> {
-
+            
             var addStd1 = Address.builder()
-                    .area("Rahmat Nager")
-                    .zipCode(211013)
-                    .houseNo("23").build();
-
+                .area("Rahmat Nager")
+                .zipCode(211013)
+                .houseNo("23").build();
+            
             var addStd2 = Address.builder()
-                    .area("M.M coloney")
-                    .zipCode(841226)
-                    .houseNo("24").build();
-
+                .area("M.M coloney")
+                .zipCode(841226)
+                .houseNo("24").build();
+            
             var std1 = Student.builder()
-                    .name("ramez")
-                    .email("imramez@gmail.com")
-                    .rollNo("1")
-                    .address(addStd1)
-                    .build();
-
+                .name("ramez")
+                .email("imramez@gmail.com")
+                .rollNo("1")
+                .address(addStd1)
+                .build();
+            
             var std2 = Student.builder()
-                    .name("Akhlaq")
-                    .email("imakhlaq@gmail.com")
-                    .rollNo("2")
-                    .address(addStd2)
-                    .build();
-
+                .name("Akhlaq")
+                .email("imakhlaq@gmail.com")
+                .rollNo("2")
+                .address(addStd2)
+                .build();
+            
             studentRepo.saveAll(List.of(std2, std1));
         };
     }
-
+    
 }
