@@ -1,5 +1,6 @@
 package com.schoolservice.resmodel;
 
+import com.schoolservice.model.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,17 +19,6 @@ public class StudentServiceRes {
     private String name;
     private String email;
     private Address address;
-}
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Address {
-    
-    private String houseNo;
-    private String area;
-    private Integer zipCode;
 }
 
 

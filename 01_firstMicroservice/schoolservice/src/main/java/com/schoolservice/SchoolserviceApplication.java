@@ -31,7 +31,7 @@ public class SchoolserviceApplication {
     public RestClient restClient() {
         
         return RestClient.builder()
-            .baseUrl("http://localhost:8080")
+            .baseUrl("http://localhost:8081")
             .build();
     }
     

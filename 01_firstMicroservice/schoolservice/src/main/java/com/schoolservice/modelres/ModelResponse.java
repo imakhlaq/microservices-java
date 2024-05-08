@@ -1,6 +1,7 @@
 package com.schoolservice.modelres;
 
-import com.schoolservice.service.SchoolService;
+import com.schoolservice.model.Address;
+import com.schoolservice.resmodel.StudentServiceRes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,30 +18,6 @@ public class ModelResponse {
     private UUID id;
     private String schoolName;
     private Address address;
-    private SchoolService students;
+    private StudentServiceRes students;
     
-}
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Address {
-    
-    private String houseNo;
-    private String area;
-    private Integer zipCode;
-}
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class StudentServiceRes {
-    
-    private UUID id;
-    private String rollNo;
-    private String name;
-    private String email;
-    private Address address;
 }
