@@ -1,14 +1,12 @@
 package com.schoolservice.service;
 
+import com.schoolservice.clients.StudentClient;
 import com.schoolservice.modelres.ModelResponse;
 import com.schoolservice.repo.SchoolRepo;
-import com.schoolservice.resmodel.StudentServiceRes;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-
-import java.lang.reflect.InvocationTargetException;
 
 @Service
 public class SchoolService {
@@ -19,10 +17,16 @@ public class SchoolService {
     @Autowired
     RestClient restClient;
     
-    public Object getStudentAndSchool(String rollno, String schoolID) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    @Autowired
+    StudentClient studentClient;
+    
+    public Object getStudentAndSchool(String rollno, String schoolID) {
         
-        var studentServiceRes = restClient.get().uri("/api/student/1")
-            .retrieve().toEntity(StudentServiceRes.class).getBody();
+        //using restClient / restTemplate to make http call
+      /*  var studentServiceRes = restClient.get().uri("/api/student/1")
+            .retrieve().toEntity(StudentServiceRes.class).getBody();*/
+        
+        var studentServiceRes = studentClient.getStudent("1").getBody();
         
         var school = schoolRepo.findBySchoolNameEquals("sauzab").get();
         System.out.println(school);
