@@ -1,7 +1,9 @@
 package com.schoolservice.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.DefaultServiceInstance;
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,9 +12,15 @@ import reactor.core.publisher.Flux;
 
 import java.util.List;
 
+//config class for client side load balancing
 @Configuration
 public class StudentServiceLoadBalancerConfig {
     
+    //to access services registered in registry
+    @Autowired
+    DiscoveryClient discoveryClient;
+    
+    //if we need to connect to multiple services we need multiple Spring cloud loadbalancer
     @Bean
     @Primary
     ServiceInstanceListSupplier serviceInstanceListSupplier() {
@@ -21,6 +29,7 @@ public class StudentServiceLoadBalancerConfig {
     }
 }
 
+//configuration class for spring cloud loadbalancer
 class StudentServiceInstanceListSuppler implements ServiceInstanceListSupplier {
     
     private final String serviceId;
@@ -36,6 +45,7 @@ class StudentServiceInstanceListSuppler implements ServiceInstanceListSupplier {
         return this.serviceId;
     }
     
+    //adding available student service available instance
     @Override
     public Flux<List<ServiceInstance>> get() {
         
