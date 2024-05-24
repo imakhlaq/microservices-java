@@ -18,7 +18,7 @@ public class UserService {
     @Autowired
     private RestClient.Builder restClientBuilder;
     
-    ModelRes getUserWithProducts() {
+    public ModelRes getUserWithProducts() {
         
         var user = User.builder().id(UUID.randomUUID())
             .name("Akhlaq").build();
@@ -33,5 +33,11 @@ public class UserService {
         BeanUtils.copyProperties(user, modelUserRes);
         
         return modelUserRes;
+    }
+    
+    public Object getProductWithId(int id) {
+        
+        return this.productClient.getProduct('1');
+        
     }
 }
